@@ -356,7 +356,7 @@ class wwdcVideosController {
 
 func showHelpAndExit() {
     print("wwdc2016 - a simple swifty video sessions bulk download.\nJust Get'em all!")
-    print("usage: wwdc2006.swift [--hd] [--sd] [--pdf] [--pdf-only] [--sessions] [--help]\n")
+    print("usage: wwdc2006.swift [--hd] [--sd] [--pdf] [--pdf-only] [--sessions] [--url-only] [--help]\n")
     exit(0)
 }
 
@@ -365,6 +365,7 @@ var format = VideoQuality.HD
 var shouldDownloadPDFResource = false
 var shouldDownloadVideoResource = true
 var shouldDownloadSampleCodeResource = false
+var fetchURLOnly = false
 
 var gettingSessions = false
 var sessionsSet:Set<String> = Set()
@@ -399,6 +400,11 @@ for argument in arguments {
     case "--sample":
         shouldDownloadSampleCodeResource = true
         gettingSessions = false
+        
+    case "--url-only":
+        fetchURLOnly = true
+        gettingSessions = false
+        break;
 
     case "--sessions", "-s":
         gettingSessions = true
@@ -465,7 +471,7 @@ for (index, value) in sessionsListArray.enumerate() {
             print("Video : Video is not yet available !!!")
         } else {
             print("Video : \(videoURLString)")
-            wwdcVideosController.downloadFileFromURLString(videoURLString, forSession: value)
+//            wwdcVideosController.downloadFileFromURLString(videoURLString, forSession: value)
         }
     }
 
@@ -475,7 +481,7 @@ for (index, value) in sessionsListArray.enumerate() {
             print("PDF : PDF is not yet available !!!")
         } else {
             print("PDF : \(pdfResourceURLString)")
-            wwdcVideosController.downloadFileFromURLString(pdfResourceURLString, forSession: value)
+//            wwdcVideosController.downloadFileFromURLString(pdfResourceURLString, forSession: value)
         }
     }
 
@@ -487,7 +493,7 @@ for (index, value) in sessionsListArray.enumerate() {
             print("SampleCode: ")
             for path in sampleURLPaths {
                 print("\(path)")
-	            wwdcVideosController.downloadFileFromURLString(path, forSession: value)
+//	            wwdcVideosController.downloadFileFromURLString(path, forSession: value)
             }
         }
     }
